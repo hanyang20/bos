@@ -15,8 +15,12 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
+import com.itheima.utils.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
@@ -142,8 +146,48 @@ public class AreaAction extends BaseAction<Area>{
         list2json(list,new String[]{"subareas"});
         return NONE;
     }
-   
-    
+     //导出区域数据
+    @Action(value="areaAction_exportXls")
+    public String exportXls() throws Exception {
+        List<Area> list =areaService.findAll();
+        // 在内存中创建Excel文件
+        HSSFWorkbook workbook=new HSSFWorkbook();
+        // 创建工作簿
+        HSSFSheet sheet = workbook.createSheet("区域数据");
+        // 创建第1行,即表头
+        HSSFRow titleRow = sheet.createRow(0);
+        //创建列
+        titleRow.createCell(0).setCellValue("省");
+        titleRow.createCell(1).setCellValue("市");
+        titleRow.createCell(2).setCellValue("区");
+        titleRow.createCell(3).setCellValue("邮编");
+        titleRow.createCell(4).setCellValue("城市编码");
+        titleRow.createCell(5).setCellValue("简码");
+        for (Area area: list) {
+            HSSFRow dataRow = sheet.createRow(sheet.getLastRowNum() + 1);
+            dataRow.createCell(0).setCellValue(area.getProvince());
+            dataRow.createCell(1).setCellValue(area.getCity());
+            dataRow.createCell(2).setCellValue(area.getDistrict());
+            dataRow.createCell(3).setCellValue(area.getPostcode());
+            dataRow.createCell(4).setCellValue(area.getCitycode());
+            dataRow.createCell(5).setCellValue(area.getShortcode());
+        }
+        // 定义文件名
+        String fileName = "区域数据.xls";
+        String agent = ServletActionContext.getRequest().getHeader("User-Agent");
+        fileName = FileUtils.encodeDownloadFilename(fileName,agent);
+
+        String contentType = ServletActionContext.getServletContext().getMimeType(fileName);
+        //两个头一个流
+        HttpServletResponse response = ServletActionContext.getResponse();
+        response.setContentType(contentType);
+        response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+        ServletOutputStream outputStream = response.getOutputStream();
+
+        workbook.write(outputStream);
+        workbook.close();
+        return NONE;
+    }
     
     public void setFile(File file) {
         this.file = file;

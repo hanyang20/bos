@@ -141,4 +141,32 @@
 		<!--指定读取配置文件-->
 		<property name="cacheManagerConfigFile" value="classpath:ehcache.xml"></property>
 	</bean>
+
+	<!--指定自定义任务对象-->
+	<bean id="workBillMailJob" class="com.itheima.bos.service.jobs.WorkBillMailJob"></bean>
+
+	<!-- 指定jobdetail,通过反射调用自定义任务对象 -->
+	<bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!--注入自定义任务对象-->
+         <property name="targetObject" ref="workBillMailJob"></property>
+		 <property name="targetMethod" value="sendMail"></property>
+	</bean>
+	<!--指定触发器jobdetail-->
+	<bean id="trigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<!--注入-->
+         <property name="jobDetail" ref="jobDetail"></property>
+		<!--指定调度规则-->
+		<property name="cronExpression">
+			<value>0/100000 * 20 * * ?</value>
+		</property>
+	</bean>
+
+	<!-- 指定调度工厂 -->
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<array>
+				<ref bean="trigger"></ref>
+			</array>
+		</property>
+	</bean>
 </beans>
