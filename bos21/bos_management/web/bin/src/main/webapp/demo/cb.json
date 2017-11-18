@@ -1,0 +1,18 @@
+[
+	{
+		"idd": "001",
+		"name": "beijing"
+	},
+	{
+		"idd": "002",
+		"name": "shanghai"
+	},
+	{
+		"idd": "003",
+		"name": "guangzhou"
+	},
+	{
+		"idd": "004",
+		"name": "shenzhen"
+	}
+]
