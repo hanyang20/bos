@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../bos_fore/bos_fore.iml" filepath="$PROJECT_DIR$/../bos_fore/bos_fore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../bos_management/bos_management.iml" filepath="$PROJECT_DIR$/../bos_management/bos_management.iml" />
+      <module fileurl="file://$PROJECT_DIR$/common-parent.iml" filepath="$PROJECT_DIR$/common-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../crm20/crm20.iml" filepath="$PROJECT_DIR$/../crm20/crm20.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../bos_management/dao/dao.iml" filepath="$PROJECT_DIR$/../bos_management/dao/dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../bos_management/domain/domain.iml" filepath="$PROJECT_DIR$/../bos_management/domain/domain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../itheimaUtils/itheimaUtils.iml" filepath="$PROJECT_DIR$/../itheimaUtils/itheimaUtils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../middleware/middleware.iml" filepath="$PROJECT_DIR$/../middleware/middleware.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../bos_management/service/service.iml" filepath="$PROJECT_DIR$/../bos_management/service/service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../bos_management/web/web.iml" filepath="$PROJECT_DIR$/../bos_management/web/web.iml" />
+    </modules>
+  </component>
+</project>
