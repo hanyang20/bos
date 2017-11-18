@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>tabs选项卡</title>
+
+		<!-- 导入jquery核心类库 -->
+		<script type="text/javascript" src="../js/jquery-1.8.3.js"></script>
+		<!-- 导入easyui类库 -->
+		<link id="easyuiTheme" rel="stylesheet" type="text/css" href="../js/easyui/themes/default/easyui.css">
+		<link rel="stylesheet" type="text/css" href="../js/easyui/themes/icon.css">
+		<link rel="stylesheet" type="text/css" href="../css/default.css">
+		<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script>
+
+	</head>
+
+	<body>
+
+		<div id="cc" class="easyui-layout" style="width:100%;height:100%;">
+			<div data-options="region:'north',title:'North Title'" style="height:100px;"></div>
+			<div data-options="region:'south',title:'South Title'" style="height:100px;"></div>
+			<div data-options="region:'east',iconCls:'icon-reload',title:'East'" style="width:100px;"></div>
+			<div data-options="region:'west',title:'West'" style="width:200px;">
+
+				<div id="aa" class="easyui-accordion" data-options="fit:true">
+					<div title="面板1" data-options="iconCls:'icon-save'" style="padding:10px;">
+						面板1
+					</div>
+					<div title="面板2" data-options="iconCls:'icon-reload'" style="padding:10px;">
+						面板2
+					</div>
+					<div title="面板3">
+						面板3
+					</div>
+				</div>
+
+			</div>
+			<div data-options="region:'center',title:'center title'" >
+				<div id="tt" class="easyui-tabs" data-options="fit:true">
+					<div title="Tab1" style="padding:20px;display:none;">
+						tab1
+					</div>
+					<div title="Tab2" data-options="closable:true" style="overflow:auto;padding:20px;display:none;">
+						tab2
+					</div>
+					<div title="Tab3" data-options="iconCls:'icon-reload',closable:true" style="padding:20px;display:none;">
+						tab3
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+	</body>
+
+</html>

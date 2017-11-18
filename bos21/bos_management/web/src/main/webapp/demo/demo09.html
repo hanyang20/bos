@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>小案例</title>
+
+		<!-- 导入jquery核心类库 -->
+		<script type="text/javascript" src="../js/jquery-1.8.3.js"></script>
+		<!-- 导入easyui类库 -->
+		<link id="easyuiTheme" rel="stylesheet" type="text/css" href="../js/easyui/themes/default/easyui.css">
+		<link rel="stylesheet" type="text/css" href="../js/easyui/themes/icon.css">
+		<link rel="stylesheet" type="text/css" href="../css/default.css">
+		<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script>
+		<!-- 导入ztree类库 -->
+		<link rel="stylesheet" href="../js/ztree/zTreeStyle.css" type="text/css" />
+		<script src="../js/ztree/jquery.ztree.all-3.5.js" type="text/javascript"></script>
+		<script src="../js/easyui/locale/easyui-lang-zh_CN.js" type="text/javascript"></script>
+		<script>
+			$(function() {
+
+				var setting = {
+					data: {
+						simpleData: { //使用简单JSON
+							enable: true
+						}
+					},
+					callback: { // 设置节点的点击事件
+						onClick: function(event, treeId, treeNode) {
+							// 如果不是叶子节点就不生成Tab选项卡
+							if(treeNode.page != undefined) {
+								// 判断选项卡是否存在
+								var result = $('#tt').tabs("exists", treeNode.name)
+								if(result) {
+									// 如果存在,就选中
+									$('#tt').tabs("select", treeNode.name)
+								} else {
+									// 如果不存在,就添加
+									$('#tt')
+										.tabs(
+											'add', {
+												title: treeNode.name, // 选项卡标题
+												content: '<iframe frameborder=no style="width:100%;height:100%;" src="../' +
+													treeNode.page +
+													'"></iframe>', // 选项卡内容
+												closable: true // 是否可关闭
+											});
+								}
+							}
+						}
+					}
+				};
+
+				$.get("../data/menu.json", function(data) {
+
+					// 属性1 : 节点,生成的树附加到那个节点上
+					// 属性2  : 树的属性设置
+					//属性3 : 生成树所用到的数据
+					$.fn.zTree.init($("#treeDemo"), setting, data);
+				}, "json")
+
+			})
+		</script>
+	</head>
+
+	<body>
+
+		<div id="cc" class="easyui-layout" style="width: 100%; height: 100%;">
+			<div data-options="region:'north',title:'North Title'" style="height: 100px;"></div>
+			<div data-options="region:'south',title:'South Title'" style="height: 100px;"></div>
+			<div data-options="region:'east',iconCls:'icon-reload',title:'East'" style="width: 100px;"></div>
+			<div data-options="region:'west',title:'West'" style="width: 200px;">
+
+				<div id="aa" class="easyui-accordion" data-options="fit:true">
+					<div title="面板1" data-options="iconCls:'icon-save'">
+
+						<!--1.添加ul节点-->
+						<ul id="treeDemo" class="ztree"></ul>
+					</div>
+					<div title="面板2" data-options="iconCls:'icon-reload'" style="padding: 10px;">面板2</div>
+					<div title="面板3">面板3</div>
+				</div>
+
+			</div>
+			<div data-options="region:'center',title:'center title'">
+				<div id="tt" class="easyui-tabs" data-options="fit:true">
+					<div title="Tab1" style="padding: 20px; display: none;">tab1</div>
+					<div title="Tab2" data-options="closable:true" style="overflow: auto; padding: 20px; display: none;">tab2</div>
+					<div title="Tab3" data-options="iconCls:'icon-reload',closable:true" style="padding: 20px; display: none;">tab3</div>
+				</div>
+
+			</div>
+		</div>
+
+	</body>
+
+</html>
